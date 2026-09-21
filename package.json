@@ -22,7 +22,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\""
   },
   "devDependencies": {
-    "prettier": "^3.9.6",
+    "prettier": "^3.9.8",
     "typescript": "^5.7.2"
   },
   "engines": {
