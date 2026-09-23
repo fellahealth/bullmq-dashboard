@@ -158,6 +158,40 @@ ignored and the UI displays a banner explaining the server-side override.
 
 ---
 
+## Read-only mode
+
+Pass `readOnlyMode: true` at the top level of the dashboard options (alongside `uiConfig`, not
+inside it) to turn the whole dashboard into a viewer. The server rejects every mutating request
+with `405 Method Not Allowed`, and the UI hides all action controls (retry, promote, remove,
+pause/resume, clean, add job). Read endpoints (queues, jobs, logs, search) keep working.
+
+```ts
+createDashboard({
+  queues,
+  serverAdapter,
+  options: {
+    readOnlyMode: true,
+    uiConfig: { title: 'My Queues (read-only)' },
+  },
+});
+```
+
+For NestJS, set it inside `dashboardOptions`:
+
+```ts
+AIOSBullMQDashboardModule.forRoot({
+  route: '/queues',
+  adapter: ExpressAdapter,
+  dashboardOptions: { readOnlyMode: true },
+});
+```
+
+The flag applies to **every** queue, including queues registered later at runtime, and takes
+precedence over per-queue `readOnlyMode` options. Enforcement is server-side, so it holds even
+if a client is modified to re-enable the buttons.
+
+---
+
 ## Local development
 
 The repo is a yarn workspace. To work on the packages:

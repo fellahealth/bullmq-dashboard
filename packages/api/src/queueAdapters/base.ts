@@ -12,9 +12,9 @@ import {
 } from '../../typings/app';
 
 export abstract class BaseAdapter {
-  public readonly readOnlyMode: boolean;
-  public readonly allowRetries: boolean;
-  public readonly allowCompletedRetries: boolean;
+  public readOnlyMode: boolean;
+  public allowRetries: boolean;
+  public allowCompletedRetries: boolean;
   public readonly prefix: string;
   public readonly delimiter: string;
   public readonly description: string;
@@ -37,6 +37,12 @@ export abstract class BaseAdapter {
     this.displayName = options.displayName || '';
     this.type = type;
     this.externalJobUrl = options.externalJobUrl;
+  }
+
+  public enableReadOnlyMode(): void {
+    this.readOnlyMode = true;
+    this.allowRetries = false;
+    this.allowCompletedRetries = false;
   }
 
   public getDescription(): string {

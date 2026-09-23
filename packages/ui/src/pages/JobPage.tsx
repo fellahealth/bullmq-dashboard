@@ -15,6 +15,7 @@ import {
 import { useJob, useJobLogs } from '../hooks/useQueues';
 import { useConfirm } from '../hooks/useConfirm';
 import { api } from '../lib/api';
+import { uiConfig } from '../lib/uiConfig';
 import { Card, CardBody, CardHeader } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
@@ -136,19 +137,21 @@ export default function JobPage() {
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-2">
-        <Button variant="secondary" size="sm" onClick={handleRetry}>
-          <RotateCcw className="h-3.5 w-3.5" /> Retry
-        </Button>
-        {status === 'delayed' && (
-          <Button variant="secondary" size="sm" onClick={handlePromote}>
-            <ChevronsUp className="h-3.5 w-3.5" /> Promote
+      {!uiConfig.readOnlyMode && (
+        <div className="flex flex-wrap gap-2">
+          <Button variant="secondary" size="sm" onClick={handleRetry}>
+            <RotateCcw className="h-3.5 w-3.5" /> Retry
           </Button>
-        )}
-        <Button variant="outline" size="sm" onClick={handleRemove}>
-          <Trash2 className="h-3.5 w-3.5" /> Remove
-        </Button>
-      </div>
+          {status === 'delayed' && (
+            <Button variant="secondary" size="sm" onClick={handlePromote}>
+              <ChevronsUp className="h-3.5 w-3.5" /> Promote
+            </Button>
+          )}
+          <Button variant="outline" size="sm" onClick={handleRemove}>
+            <Trash2 className="h-3.5 w-3.5" /> Remove
+          </Button>
+        </div>
+      )}
 
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <MetricTile icon={<Clock className="h-3.5 w-3.5" />} label="Created" value={formatRelative(job.timestamp)} hint={formatAbsolute(job.timestamp)} />

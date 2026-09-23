@@ -86,6 +86,7 @@ export interface RedisStats {
 }
 
 export interface UIConfig {
+  readOnlyMode?: boolean;
   title?: string;
   subtitle?: string;
   pollingInterval?: { showSetting?: boolean; forceInterval?: number };

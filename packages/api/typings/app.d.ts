@@ -245,6 +245,7 @@ export type FormatterField = 'data' | 'returnValue' | 'name' | 'progress';
 export type DashboardOptions = {
   uiBasePath?: string;
   uiConfig?: UIConfig;
+  readOnlyMode?: boolean;
 };
 
 export type IMiscLink = {
@@ -253,6 +254,7 @@ export type IMiscLink = {
 };
 
 export type UIConfig = Partial<{
+  readOnlyMode: boolean;
   title: string;
   subtitle: string;
   logo: { path: string; width?: number | string; height?: number | string };
